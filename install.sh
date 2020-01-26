@@ -1,9 +1,31 @@
 #!/bin/bash
 
-ln -s $(pwd)/daemon.conf $HOME/.config/pulse/daemon.conf
+echo "Linking daemon.conf..."
+if ! (ln -sf $(pwd)/daemon.conf $HOME/.config/pulse/daemon.conf); then
+	echo "Linkage error. Exiting..." 1>&2
+	exit 1
+fi
 
-sudo ln -sf $(pwd)/asound.conf /etc/asound.conf
+if [[ $# -ne 0 ]] && [[ $1 -eq "all" ]]; then
+	echo "Linking asound.conf..."
+	if ! (ln -sf $(pwd)/asound.conf /etc/asound.conf); then
+		echo "Linkage error. Maybe you didn't run this script as root?" 1>&2
+		exit 1
+	fi
+fi
 
-pulseaudio -k
-sleep 10
-pulseaudio --start
+echo "Restarting pulseaudio..."
+
+if ! (pulseaudio -k); then
+	echo "Error killing the pulseaudio module" 1>&2
+	exit 1
+fi
+
+sleep 3
+
+if ! (pulseaudio --start); then
+	echo "Error starting the pulseaudio module" 1>&2
+	exit 1
+fi
+
+echo "Done!"
