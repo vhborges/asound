@@ -1,29 +1,30 @@
 #!/bin/bash
 
-echo "Removing daemon.conf..."
-if ! (rm -f $HOME/.config/pulse/daemon.conf); then
-	echo "Remove error. Exiting..." 1>&2
+echo "Restoring asound.conf..."
+if ! (cp -f backup/asound.conf /etc/asound.conf); then
+	echo "Error while copying. Exiting..." 1>&2
 	exit 1
 fi
 
-echo "Restoring asound.conf..."
-if ! (sudo rm /etc/asound.conf && sudo cp -a backup/asound.conf /etc/); then
-	echo "Copy error. Relinking daemon.conf and exiting..." 1>&2
-	ln -sf $(pwd)/configs/daemon.conf $HOME/.config/pulse/
-	exit 1
+if [[ $# -ne 0 ]] && [[ $1 -eq "all" ]]; then
+	echo "Removing daemon.conf..."
+	if ! (rm $HOME/.config/pulse/daemon.conf); then
+		echo "Error while removing. Exiting..." 1>&2
+		exit 1
+	fi
 fi
 
 echo "Restarting pulseaudio..."
 
 if ! (pulseaudio -k); then
-	echo "Error killing the pulseaudio module. Please restart it manually for this to work." 1>&2
+	echo "Error killing the pulseaudio module" 1>&2
 	exit 1
 fi
 
 sleep 3
 
 if ! (pulseaudio --start); then
-	echo "Error starting the pulseaudio module. Please restart it manually for this to work." 1>&2
+	echo "Error starting the pulseaudio module" 1>&2
 	exit 1
 fi
 
