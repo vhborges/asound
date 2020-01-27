@@ -1,14 +1,14 @@
 #!/bin/bash
 
 echo "Linking daemon.conf..."
-if ! (ln -sf $(pwd)/daemon.conf $HOME/.config/pulse/daemon.conf); then
+if ! (ln -sf $(pwd)/configs/daemon.conf $HOME/.config/pulse/); then
 	echo "Linkage error. Exiting..." 1>&2
 	exit 1
 fi
 
 if [[ $# -ne 0 ]] && [[ $1 -eq "all" ]]; then
 	echo "Linking asound.conf..."
-	if ! (ln -sf $(pwd)/asound.conf /etc/asound.conf); then
+	if ! (ln -sf $(pwd)/configs/asound.conf /etc/); then
 		echo "Linkage error. Maybe you didn't run this script as root?" 1>&2
 		exit 1
 	fi

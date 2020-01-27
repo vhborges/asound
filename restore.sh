@@ -1,7 +1,7 @@
 #!/bin/bash
 
 echo "Restoring asound.conf..."
-if ! (cp -f backup/asound.conf /etc/asound.conf); then
+if ! (cp -f backup/asound.conf /etc/); then
 	echo "Error while copying. Exiting..." 1>&2
 	exit 1
 fi
