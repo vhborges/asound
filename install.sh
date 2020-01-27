@@ -6,12 +6,10 @@ if ! (ln -sf $(pwd)/configs/daemon.conf $HOME/.config/pulse/); then
 	exit 1
 fi
 
-if [[ $# -ne 0 ]] && [[ $1 -eq "all" ]]; then
-	echo "Linking asound.conf..."
-	if ! (ln -sf $(pwd)/configs/asound.conf /etc/); then
-		echo "Linkage error. Maybe you didn't run this script as root?" 1>&2
-		exit 1
-	fi
+echo "Linking asound.conf..."
+if ! (ln -sf $(pwd)/configs/asound.conf /etc/); then
+	echo "Linkage error. Maybe you didn't run this script as root?" 1>&2
+	exit 1
 fi
 
 echo "Restarting pulseaudio..."

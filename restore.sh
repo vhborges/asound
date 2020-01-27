@@ -1,17 +1,15 @@
 #!/bin/bash
 
+echo "Removing daemon.conf..."
+if ! (rm $HOME/.config/pulse/daemon.conf); then
+	echo "Error while removing. Exiting..." 1>&2
+	exit 1
+fi
+
 echo "Restoring asound.conf..."
 if ! (cp -f backup/asound.conf /etc/); then
 	echo "Error while copying. Exiting..." 1>&2
 	exit 1
-fi
-
-if [[ $# -ne 0 ]] && [[ $1 -eq "all" ]]; then
-	echo "Removing daemon.conf..."
-	if ! (rm $HOME/.config/pulse/daemon.conf); then
-		echo "Error while removing. Exiting..." 1>&2
-		exit 1
-	fi
 fi
 
 echo "Restarting pulseaudio..."
