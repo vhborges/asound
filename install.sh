@@ -1,14 +1,14 @@
 #!/bin/bash
 
-echo "Linking daemon.conf..."
-if ! (ln -sf $(pwd)/configs/daemon.conf $HOME/.config/pulse/); then
-	echo "Linkage error. Exiting..." 1>&2
+echo "Copying daemon.conf..."
+if ! (cp -f $(pwd)/configs/daemon.conf $HOME/.config/pulse/); then
+	echo "Copy error. Exiting..." 1>&2
 	exit 1
 fi
 
-echo "Linking asound.conf..."
-if ! (sudo ln -sf $(pwd)/configs/asound.conf /etc/); then
-	echo "Linkage error. Removing daemon.conf and exiting..." 1>&2
+echo "Copying asound.conf..."
+if ! (sudo cp -f $(pwd)/configs/asound.conf /etc/); then
+	echo "Copy error. Removing daemon.conf and exiting..." 1>&2
 	rm $HOME/.config/pulse/daemon.conf
 	exit 1
 fi

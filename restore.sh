@@ -7,9 +7,9 @@ if ! (rm -f $HOME/.config/pulse/daemon.conf); then
 fi
 
 echo "Restoring asound.conf..."
-if ! (sudo rm /etc/asound.conf && sudo cp -a backup/asound.conf /etc/); then
-	echo "Copy error. Relinking daemon.conf and exiting..." 1>&2
-	ln -sf $(pwd)/configs/daemon.conf $HOME/.config/pulse/
+if ! (sudo cp -af backup/asound.conf /etc/); then
+	echo "Copy error. Recreating daemon.conf and exiting..." 1>&2
+	cp -f $(pwd)/configs/daemon.conf $HOME/.config/pulse/
 	exit 1
 fi
 
