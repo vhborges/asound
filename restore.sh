@@ -1,16 +1,23 @@
 #!/bin/bash
 
-echo "Removing daemon.conf..."
-if ! (rm -f $HOME/.config/pulse/daemon.conf); then
-	echo "Remove error. Exiting..." 1>&2
-	exit 1
+if [ -f backup/daemon.conf ]; then
+	echo "Restoring daemon.conf..."
+	if ! (cp -af backup/daemon.conf $HOME/.config/pulse/); then
+		echo "Error while copying. Exiting..." 1>&2
+		exit 1
+	fi
+else
+	echo "daemon.conf not found in backup. Skipping this file..."
 fi
 
-echo "Restoring asound.conf..."
-if ! (sudo cp -af backup/asound.conf /etc/); then
-	echo "Copy error. Recreating daemon.conf and exiting..." 1>&2
-	cp -f $(pwd)/configs/daemon.conf $HOME/.config/pulse/
-	exit 1
+if [ -f backup/.asoundrc ]; then
+	echo "Restoring .asoundrc..."
+	if ! (cp -af backup/.asoundrc $HOME/); then
+		echo "Error while copying. Exiting..." 1>&2
+		exit 1
+	fi
+else
+	echo ".asoundrc not found in backup. Skipping this file..."
 fi
 
 echo "Restarting pulseaudio..."

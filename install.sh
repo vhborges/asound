@@ -1,15 +1,14 @@
 #!/bin/bash
 
 echo "Copying daemon.conf..."
-if ! (cp -f $(pwd)/configs/daemon.conf $HOME/.config/pulse/); then
+if ! (cp -f configs/daemon.conf $HOME/.config/pulse/); then
 	echo "Copy error. Exiting..." 1>&2
 	exit 1
 fi
 
-echo "Copying asound.conf..."
-if ! (sudo cp -f $(pwd)/configs/asound.conf /etc/); then
-	echo "Copy error. Removing daemon.conf and exiting..." 1>&2
-	rm $HOME/.config/pulse/daemon.conf
+echo "Copying .asoundrc..."
+if ! (cp -f configs/.asoundrc $HOME/); then
+	echo "Copy error. Exiting..." 1>&2
 	exit 1
 fi
 
