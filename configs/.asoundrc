@@ -1,0 +1,14 @@
+# Use PulseAudio plugin hw
+pcm.!default {
+   type plug
+   slave.pcm hw
+}
+
+ctl.!default {
+   type plug
+   slave.pcm hw
+}
+
+defaults.pcm.rate_converter "speexrate_medium"
+
+# vim:set ft=alsaconf:
