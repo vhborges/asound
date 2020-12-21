@@ -9,17 +9,17 @@ if [ -f $HOME/.config/pulse/daemon.conf ]; then
 		exit 1
 	fi
 else
-	echo "daemon.conf not found. Skipping this file..."
+	echo "daemon.conf not found. Skipping..."
 fi
 
-if [ -f $HOME/.asoundrc ]; then
-	echo "Backing up .asoundrc..."
-	if ! (cp -ab $HOME/.asoundrc backup/); then
-		echo "Backup error. Exiting..." 1>&2
-		exit 1
-	fi
-else
-	echo ".asoundrc not found. Skipping this file..."
-fi
+#if [ -f $HOME/.asoundrc ]; then
+#	echo "Backing up .asoundrc..."
+#	if ! (cp -ab $HOME/.asoundrc backup/); then
+#		echo "Backup error. Exiting..." 1>&2
+#		exit 1
+#	fi
+#else
+#	echo ".asoundrc not found. Skipping this file..."
+#fi
 
-echo "Done!"
+#echo "Done!"

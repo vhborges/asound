@@ -10,15 +10,15 @@ else
 	echo "daemon.conf not found in backup. Skipping this file..."
 fi
 
-if [ -f backup/.asoundrc ]; then
-	echo "Restoring .asoundrc..."
-	if ! (cp -af backup/.asoundrc $HOME/); then
-		echo "Error while copying. Exiting..." 1>&2
-		exit 1
-	fi
-else
-	echo ".asoundrc not found in backup. Skipping this file..."
-fi
+#if [ -f backup/.asoundrc ]; then
+#	echo "Restoring .asoundrc..."
+#	if ! (cp -af backup/.asoundrc $HOME/); then
+#		echo "Error while copying. Exiting..." 1>&2
+#		exit 1
+#	fi
+#else
+#	echo ".asoundrc not found in backup. Skipping this file..."
+#fi
 
 echo "Restarting pulseaudio..."
 

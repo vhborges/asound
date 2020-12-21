@@ -6,11 +6,11 @@ if ! (cp -f configs/daemon.conf $HOME/.config/pulse/); then
 	exit 1
 fi
 
-echo "Copying .asoundrc..."
-if ! (cp -f configs/.asoundrc $HOME/); then
-	echo "Copy error. Exiting..." 1>&2
-	exit 1
-fi
+#echo "Copying .asoundrc..."
+#if ! (cp -f configs/.asoundrc $HOME/); then
+#	echo "Copy error. Exiting..." 1>&2
+#	exit 1
+#fi
 
 echo "Restarting pulseaudio..."
 
